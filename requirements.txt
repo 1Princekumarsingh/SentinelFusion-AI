@@ -1,0 +1,39 @@
+# core
+numpy
+opencv-python
+pillow
+
+# deep Learning
+torch
+torchvision
+
+# YOLO (Ultralytics)
+ultralytics
+
+# tracking
+deep-sort-realtime
+
+# pose / hands / face
+mediapipe
+
+# depth estimation (MiDaS support)
+timm
+
+# API server
+fastapi
+uvicorn
+
+# streaming / utils
+python-multipart
+aiofiles
+
+# dashboard 
+streamlit
+
+# optional (better performance / utilities)
+scipy
+filterpy
+lap
+
+# logging & config
+pyyaml

@@ -1,0 +1,15 @@
+# models
+*.pt
+*.pth
+
+# videos
+*.mp4
+*.avi
+
+# env
+venv/
+
+# python
+__pycache__/
+*.pyc
+.mypy_cache/
