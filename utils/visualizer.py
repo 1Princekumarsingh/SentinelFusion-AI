@@ -26,7 +26,7 @@ class Visualizer:
         self.track_history = {}
 
     def draw_tracks(self, frame, tracks, depth_map):
-        alpha = 0.8
+        alpha = 0.6
         active_ids = []
 
         for obj in tracks:
@@ -101,4 +101,20 @@ class Visualizer:
         self.track_history = {k: v for k, v in self.track_history.items() if k in active_ids}
 
         return frame
-    
+
+    def draw_alerts(self, frame, alerts):
+        y_offset = 80
+
+        for alert in alerts:
+            if alert["type"] == "proximity":
+                text = f"ALERT: IDs {alert['pair'][0]} & {alert['pair'][1]} TOO CLOSE!"
+
+                cv2.putText(frame, text,
+                            (20, y_offset),
+                            cv2.FONT_HERSHEY_SIMPLEX,
+                            0.6,
+                            (0, 0, 255),
+                            2)
+
+                y_offset += 30
+        return frame

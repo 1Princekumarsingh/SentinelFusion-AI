@@ -6,7 +6,7 @@ from utils.visualizer import Visualizer
 def main():
     
     print("Opening video...")
-    cap = cv2.VideoCapture(r"C:\Users\kprin\Desktop\SentinelFusion AI\video\test2.mp4")
+    cap = cv2.VideoCapture(r"C:\Users\kprin\Desktop\SentinelFusion AI\video\test.mp4")
     # cap = cv2.VideoCapture(0)
     if not cap.isOpened():
         print("failed to open video")
@@ -30,6 +30,9 @@ def main():
 
         # draw tracking + depth
         frame = visualizer.draw_tracks(frame, output["tracks"], output["depth"])
+
+        #alerts
+        frame = visualizer.draw_alerts(frame, output["alerts"])
 
         #fps calculation
         curr_time = time.time()

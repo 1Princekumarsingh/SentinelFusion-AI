@@ -18,7 +18,7 @@ class DepthEstimator:
             prediction = self.model(input_batch)
             prediction = torch.nn.functional.interpolate(
                 prediction.unsqueeze(1),
-                size=img.shape[:2],
+                size=frame.shape[:2],
                 mode="bicubic",
                 align_corners=False
             ).squeeze()
