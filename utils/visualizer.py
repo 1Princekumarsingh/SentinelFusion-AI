@@ -101,20 +101,23 @@ class Visualizer:
         self.track_history = {k: v for k, v in self.track_history.items() if k in active_ids}
 
         return frame
-
+    
+    def overlay_depth(self, frame, depth_map):
+        depth_norm = cv2.normalize(depth_map, None, 0, 255, cv2.NORM_MINMAX)
+        depth_norm = depth_norm.astype("uint8")
+        depth_color = cv2.applyColorMap(depth_norm, cv2.COLORMAP_INFERNO)
+        return cv2.addWeighted(frame, 0.6, depth_color, 0.4, 0)
+    
     def draw_alerts(self, frame, alerts):
-        y_offset = 80
-
+        h, w, _ = frame.shape
+        x = 20
+        y = 120
         for alert in alerts:
             if alert["type"] == "proximity":
                 text = f"ALERT: IDs {alert['pair'][0]} & {alert['pair'][1]} TOO CLOSE!"
-
-                cv2.putText(frame, text,
-                            (20, y_offset),
-                            cv2.FONT_HERSHEY_SIMPLEX,
-                            0.6,
-                            (0, 0, 255),
-                            2)
-
-                y_offset += 30
+                # Add background for visibility
+                (tw, th), _ = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)
+                cv2.rectangle(frame, (x-5, y-th-5), (x+tw+5, y+5), (0,0,0), -1)
+                cv2.putText(frame, text, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+                y+=30
         return frame
