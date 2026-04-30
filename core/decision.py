@@ -1,8 +1,8 @@
 import math
 
 class DecisionEngine:
-    def __init__(self):
-        self.proximity_threshold = 50
+    def __init__(self, proximity_threshold=50):
+        self.proximity_threshold = int(proximity_threshold)
 
     def compute_distance(self, p1, p2):
         return math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
@@ -11,7 +11,7 @@ class DecisionEngine:
         x1, y1, x2, y2 = bbox
         return ((x1 + x2)//2, (y1 + y2)//2)
     
-    def analyze(self, tracks, depth_map):
+    def analyze(self, tracks, depth_map=None):
         centers = []
 
         for obj in tracks:
@@ -20,11 +20,12 @@ class DecisionEngine:
             
             cx, cy = self.get_center(bbox)
 
-            h, w = depth_map.shape
-            cx = min(max(cx, 0), w-1)
-            cy = min(max(cy, 0), h-1)
-
-            depth_val = depth_map[cy, cx]
+            depth_val = 0
+            if depth_map is not None:
+                h, w = depth_map.shape
+                cx = min(max(cx, 0), w-1)
+                cy = min(max(cy, 0), h-1)
+                depth_val = depth_map[cy, cx]
 
             centers.append({
                 "id": track_id,

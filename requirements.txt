@@ -22,6 +22,7 @@ timm
 # API server
 fastapi
 uvicorn
+websockets
 
 # streaming / utils
 python-multipart

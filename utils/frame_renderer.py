@@ -2,10 +2,17 @@ import cv2
 import numpy as np
 
 class FrameRenderer:
-    def __init__(self):
+    def __init__(self, display_settings=None, heatmap_settings=None):
+        display_settings = display_settings or {}
+        heatmap_settings = heatmap_settings or {}
+
         self.heatmap = None
-        self.show_heatmap = True
-        self.show_depth = True
+        self.show_heatmap = bool(display_settings.get("show_heatmap", True))
+        self.show_depth = bool(display_settings.get("show_depth", True))
+        self.heatmap_radius = int(heatmap_settings.get("radius", 20))
+        self.heatmap_opacity = float(heatmap_settings.get("opacity", 0.3))
+        self.slow_decay = float(heatmap_settings.get("slow_decay", 0.98))
+        self.fast_decay = float(heatmap_settings.get("fast_decay", 0.995))
     
     def update_heatmap(self, frame, tracks, fps=30):
         h, w, _ = frame.shape
@@ -14,7 +21,7 @@ class FrameRenderer:
             self.heatmap = np.zeros((h,w), dtype=np.float32)
 
         #decay
-        decay = 0.98 if fps < 10 else 0.995
+        decay = self.slow_decay if fps < 10 else self.fast_decay
         self.heatmap *= decay
 
         for obj in tracks:
@@ -22,17 +29,17 @@ class FrameRenderer:
             cx = int((x1+x2)//2)
             cy = int((y1+y2)//2)
 
-            cv2.circle(self.heatmap, (cx, cy), 20, 1, -1)
+            cv2.circle(self.heatmap, (cx, cy), self.heatmap_radius, 1, -1)
 
     def draw_heatmap(self, frame):
         heat = cv2.normalize(self.heatmap, None, 0, 255, cv2.NORM_MINMAX)
         heat = heat.astype("uint8")
 
         heat_color = cv2.applyColorMap(heat, cv2.COLORMAP_JET)
-        return cv2.addWeighted(frame, 0.7, heat_color, 0.3, 0)
+        return cv2.addWeighted(frame, 1 - self.heatmap_opacity, heat_color, self.heatmap_opacity, 0)
     
     def draw_hud(self, frame, fps, tracks):
-        h, w, _ = frame.shape
+        th, tw, _ = frame.shape
         
         fps_text = f"FPS: {int(fps)}"
         (tw, th), _ = cv2.getTextSize(fps_text, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)

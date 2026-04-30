@@ -84,14 +84,12 @@ class Visualizer:
                 cv2.line(frame, points[i - 1], points[i], color, thickness)
 
             # depth
+            label = f"ID {track_id}"
             if depth_map is not None:
                 depth_value = get_depth(depth_map, (x1, y1, x2, y2))
-            else:
-                depth_value = 0
+                label += f" D:{int(depth_value)}"
 
             # draw bounding box + info
-            label = f"ID {track_id} D:{int(depth_value)}" #normalize depth
-            
             cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
             cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
 

@@ -1,0 +1,123 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--page-bg);
+    color: var(--text-main);
+    overflow: hidden;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    height: 100vh;
+    gap: var(--page-gap);
+    padding: var(--page-gap);
+    box-sizing: border-box;
+}
+
+.video-section {
+    min-width: 0;
+}
+
+.video-section h2 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--heading-text);
+}
+
+.video-section img {
+    width: 100%;
+    height: calc(100vh - 58px);
+    object-fit: contain;
+    background: var(--video-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--video-shadow);
+}
+
+.side-panel {
+    background: var(--panel-bg);
+    padding: var(--panel-padding);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--panel-padding);
+    height: calc(100vh - (var(--page-gap) * 2));
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+}
+
+.card {
+    background: var(--card-bg);
+    padding: var(--panel-padding);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    box-sizing: border-box;
+    box-shadow: var(--card-shadow);
+}
+
+.card h3 {
+    margin: 0 0 10px 0;
+    color: var(--text-muted);
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.alerts-card {
+    height: var(--alerts-height);
+    display: flex;
+    flex-direction: column;
+}
+
+#alerts {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.controls-card {
+    margin-top: auto;
+}
+
+.value {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.alert {
+    background: var(--alert-bg);
+    border: 1px solid var(--alert-border);
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    color: var(--alert-text);
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--text-main);
+    transition: transform 120ms ease, filter 120ms ease;
+}
+
+.btn:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+.btn-on {
+    background: var(--button-on);
+}
+
+.btn-off {
+    background: var(--button-off);
+}

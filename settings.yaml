@@ -1,0 +1,54 @@
+# SentinelFusion AI tuning file
+# Change these values to tune speed, detection quality, tracking, and alerts.
+# Restart the backend server after editing this file.
+
+video:
+  # Use a relative video path, absolute path, or set source: camera.
+  source: video/test.mp4
+  camera_index: 0
+  loop_video: true
+  frame_width: 640
+  frame_height: 360
+  jpeg_quality: 85
+
+display:
+  show_heatmap: true
+  show_depth: true
+
+detection:
+  model_path: yolov8n.pt
+  # Higher interval = faster FPS, less frequent fresh detections.
+  interval: 4
+  image_size: 416
+  base_confidence: 0.1
+  iou_threshold: 0.1
+  min_box_size: 20
+  # COCO classes: 0=person, 2=car.
+  target_classes: [0, 2]
+
+depth:
+  # Higher interval = faster FPS, less frequent depth refresh.
+  interval: 15
+
+tracking:
+  max_age: 30
+  n_init: 3
+  max_cosine_distance: 0.2
+  min_hits: 3
+  max_time_since_update: 2
+
+alerts:
+  proximity_threshold: 50
+
+heatmap:
+  radius: 20
+  opacity: 0.3
+  slow_decay: 0.98
+  fast_decay: 0.995
+
+demo:
+  output_path: demo_output.mp4
+  # Use 0 to record the full input video.
+  max_seconds: 10
+  # Use 0 to keep the input video's FPS.
+  output_fps: 0

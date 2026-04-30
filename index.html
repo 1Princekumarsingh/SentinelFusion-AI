@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Surveillance Dashboard</title>
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+
+        <!-- video -->
+         <div class="video-section">
+            <h2>Live Feed</h2>
+            <img src="http://127.0.0.1:8000/video_feed" alt="Video is not playing">
+         </div>
+
+         <!-- side panel -->
+          <div class="side-panel">
+
+            <!-- stats -->
+             <div class="card">
+                <h3>System Stats</h3>
+                <div>FPS: <span id="fps" class="value">0</span></div>
+                <div>Objects: <span id="objects" class="value">0</span></div>
+             </div>
+
+             <!-- alerts -->
+              <div class="card alerts-card">
+                <h3>Active Alerts</h3>
+                <div id="alerts"></div>
+              </div>
+
+              <!-- controls -->
+               <div class="card controls-card">
+                <h3>Display Controls</h3>
+                <button id="heatmapBtn" class="btn btn-on">Heatmap ON</button>
+                <button id="depthBtn" class="btn btn-on">Depth ON</button>
+               </div>
+          </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

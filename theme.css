@@ -1,0 +1,23 @@
+:root {
+    --page-bg: #10131a;
+    --panel-bg: #181d27;
+    --card-bg: #242b38;
+    --video-bg: #05070c;
+    --border-color: #2f3848;
+    --card-border: #374151;
+    --text-main: #f8fafc;
+    --text-muted: #cbd5e1;
+    --heading-text: #e5e7eb;
+    --accent: #5eead4;
+    --alert-bg: #991b1b;
+    --alert-border: #ef4444;
+    --alert-text: #fee2e2;
+    --button-on: #16a34a;
+    --button-off: #4b5563;
+    --page-gap: 12px;
+    --panel-padding: 15px;
+    --radius: 8px;
+    --alerts-height: 280px;
+    --video-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+    --card-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}

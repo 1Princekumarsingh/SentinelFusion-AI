@@ -2,12 +2,22 @@ import time
 from ultralytics import YOLO
 
 class YOLODetection:
-    def __init__(self, model_path="yolov8n.pt", base_conf=0.3, iou_threshold=0.3):
+    def __init__(
+        self,
+        model_path="yolov8n.pt",
+        base_conf=0.2,
+        iou_threshold=0.3,
+        image_size=416,
+        target_classes=None,
+        min_box_size=20,
+    ):
         self.model = YOLO(model_path)
-        self.target_classes = [0, 2]
+        self.target_classes = target_classes or [0, 2]
 
         self.base_conf = base_conf
         self.iou_threshold = iou_threshold
+        self.image_size = int(image_size)
+        self.min_box_size = int(min_box_size)
 
         self.prev_time = time.time()
         self.fps = 0
@@ -29,7 +39,13 @@ class YOLODetection:
         self.update_fps()
         dynamic_conf = self.get_dynamic_conf()
  
-        results = self.model(frame, stream=True, iou=self.iou_threshold, conf=dynamic_conf)
+        results = self.model(
+            frame,
+            stream=True,
+            imgsz=self.image_size,
+            iou=self.iou_threshold,
+            conf=dynamic_conf,
+        )
         detections = []
 
         for r in results:
@@ -40,7 +56,7 @@ class YOLODetection:
                 if cls in self.target_classes:
                     x1, y1,x2,y2 = map(int, box.xyxy[0])
 
-                    if (x2 - x1) < 20 or (y2 - y1) < 20:
+                    if (x2 - x1) < self.min_box_size or (y2 - y1) < self.min_box_size:
                         continue
 
                     detections.append({
