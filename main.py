@@ -1,3 +1,18 @@
+"""
+SentinelFusion AI - Main Entry Point
+
+Standalone desktop application for real-time object detection and tracking.
+Displays video feed with tracking overlays in an OpenCV window.
+
+Keyboard Controls:
+    h - Toggle heatmap visualization
+    d - Toggle depth visualization
+    q/ESC - Quit application
+
+Usage:
+    python main.py
+"""
+
 import cv2
 from core.cv_pipeline import CVPipeline
 

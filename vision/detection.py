@@ -52,9 +52,9 @@ class YOLODetection:
             boxes = r.boxes
             for box in boxes:
                 cls = int(box.cls[0])
-                conf = float(box.conf[0]) 
+                conf = float(box.conf[0])
                 if cls in self.target_classes:
-                    x1, y1,x2,y2 = map(int, box.xyxy[0])
+                    x1, y1, x2, y2 = map(int, box.xyxy[0])
 
                     if (x2 - x1) < self.min_box_size or (y2 - y1) < self.min_box_size:
                         continue

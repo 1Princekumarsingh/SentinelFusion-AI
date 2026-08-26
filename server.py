@@ -1,3 +1,21 @@
+"""
+SentinelFusion AI - FastAPI Web Server
+
+Provides REST API and WebSocket endpoints for video streaming and real-time stats.
+
+Endpoints:
+    GET  /              - Health check
+    GET  /video_feed    - MJPEG video stream
+    POST /config        - Update visualization settings
+    WS   /ws/stats      - Real-time statistics WebSocket
+
+Usage:
+    uvicorn server:app --host 127.0.0.1 --port 8000
+    
+    Or use the startup script:
+    python start_server.py
+"""
+
 import cv2
 from typing import Optional
 from pathlib import Path
@@ -43,7 +61,7 @@ def generate_frames():
         return
     
     while True:
-        ret, frame= cap.read()
+        ret, frame = cap.read()
 
         if not ret:
             if video_settings["loop_video"]:
@@ -73,6 +91,12 @@ def generate_frames():
 @app.get("/")
 def home():
     return {"message": "AI Streaming Server Running"}
+
+@app.get("/favicon.ico")
+def favicon():
+    """Handle favicon requests to avoid 404 errors"""
+    from fastapi.responses import Response
+    return Response(status_code=204)  # No Content
 
 @app.get("/video_feed")
 def video_feed():
