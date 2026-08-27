@@ -8,8 +8,32 @@
 
 # env
 venv/
+env/
 
 # python
 __pycache__/
 *.pyc
 .mypy_cache/
+*.pyo
+*.pyd
+.Python
+
+# logs
+*.log
+*.out
+*.err
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# outputs
+demo_output.mp4
+output/
